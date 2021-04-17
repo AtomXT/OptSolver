@@ -7,10 +7,11 @@
 %           Inputs: x, f, g, problem, method, options
 %           Outputs: x_new, f_new, g_new, d, alpha
 %
-function [x_new, f_new, g_new, H_new] = NewtonStep(x, g, H, problem, options)
+function [x_new, f_new, g_new, H_new] = NewtonWStep(x, g, H, problem, options)
 
     alpha = options.alpha;
     c1 = options.c_1_ls;
+    c2 = options.c_2_ls;
     rho = options.rho;
     beta = options.beta;
     n = size(H, 1);
@@ -36,7 +37,7 @@ function [x_new, f_new, g_new, H_new] = NewtonStep(x, g, H, problem, options)
     % disp(size(H)); disp(size(g));
     d = -H \ g;
 
-    while problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d)
+    while problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d) && c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))
         alpha = alpha * rho;
     end
 
