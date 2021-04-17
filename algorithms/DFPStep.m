@@ -1,19 +1,15 @@
-function [x_new, f_new, g_new] = BFGSStep(x, x_old, g, g_old, H_k, problem, options)
+function [x_new, f_new, g_new] = DFPStep(x, x_old, g, g_old, H_k, problem, options)
 
     alpha = options.alpha;
     c1 = options.c_1_ls;
     rho = options.rho;
-    n = size(H_k, 1);
 
     % use Cholesky with Added Multiple of the Identity algorithm to compute tau
     s_k = x - x_old;
     y_k = g - g_old;
     if dot(s_k, y_k) > options.epsilon * norm(s_k) * norm(y_k)
-        rho_k = 1 / dot(s_k, y_k);
-        V_k = eye(n) - rho_k * y_k * s_k';
-        H_new = V_k' * H_k * V_k + rho_k .* s_k * s_k';
+        H_new = H_k - H_k * (y_k * y_k') * H_k / (y_k' * H_k * y_k) + s_k * s_k' / (y_k' * s_k);
     else
-        % disp('skip the update for BFGS')
         H_new = H_k;
     end
     d = -H_new * g;

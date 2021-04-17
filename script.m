@@ -20,19 +20,23 @@ rng(0);
 problem.x0 = 506.2*[-1;ones(4,1)];
 
 % set method (minimal requirement: name of method)
-%method.name = 'GradientDescent';
-method.name = 'MNewton';
-%method.name = 'BFGS';
-%method.name = 'LBFGS';
+method.name = 'GradientDescentW';
+% method.name = 'Newton';
+% method.name = 'BFGSW';
+% method.name = 'TRNewtonCG';
+% method.name = 'TRSR1CG';
+% method.name = 'DFPW';
 %% Constants
 % set options
 options.term_tol = 1e-6;
 options.max_iterations = 1e3;
-options.c_1_ls = 1;
-options.c_2_ls = 1;
-options.rho = 0.5;
+options.c_1_ls = 1e-4;
+options.c_2_ls = 0.9;
+options.c_1_tr = 0.25;
+options.c_2_tr = 0.75;
 options.term_tol_CG = 1e-6;
-options.c1 = 1e-4;
+options.max_iterations_CG = 1e3;
+options.rho = 0.5;
 options.a_bar = 1;
 options.m = 10;
 options.epsilon = 1e-6;
