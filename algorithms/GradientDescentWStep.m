@@ -16,9 +16,8 @@ function [x_new, f_new, g_new] = GradientDescentWStep(x, f, g, problem, options)
     rho = options.rho;
     max_iter_wolfe = 20;
     k = 0;
-    while k < max_iter_wolfe && problem.compute_f(x + alpha * d) > f + c1 * alpha * g' * d || c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))
+    while k < max_iter_wolfe && (problem.compute_f(x + alpha * d) > f + c1 * alpha * g' * d || c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d)))
         alpha = alpha * rho;
-        disp(k);
         k = k + 1;
     end
 
