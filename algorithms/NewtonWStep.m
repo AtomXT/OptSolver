@@ -25,20 +25,24 @@ function [x_new, f_new, g_new, H_new] = NewtonWStep(x, g, H, problem, options)
         tau =- min(diag_H) + beta;
     end
 
-    [L, p] = chol(H + tau * eye(n));
+    [~, p] = chol(H + tau * eye(n));
 
     while p > 0
         tau = max(2 * tau, beta);
-        [L, p] = chol(H + tau * eye(n));
+        [~, p] = chol(H + tau * eye(n));
     end
 
     % determine the descent direction
     H = H + tau * eye(n);
     % disp(size(H)); disp(size(g));
     d = -H \ g;
-
-    while problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d) && c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))
+    
+    k = 0;
+    max_iter_wolfe = 20;
+    
+    while k < max_iter_wolfe && ((problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * g' * d) || (c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))))
         alpha = alpha * rho;
+        k = k + 1;
     end
 
     x_new = x + alpha * d;

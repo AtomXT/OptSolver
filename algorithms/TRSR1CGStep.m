@@ -22,7 +22,7 @@ function [x_new, B_new, Delta_new] = TRSR1CGStep(x, f, g, B, epsilon, max_iter, 
             Delta_new = 2 * Delta;
         end
 
-    elseif rho >= 0.1 && rho <= 0.75
+    elseif (rho >= 0.1) && (rho <= 0.75)
         Delta_new = Delta;
     else
         Delta_new = 0.5 * Delta;

@@ -28,10 +28,23 @@ function [problem] = setProblem(problem)
             problem.compute_g = @quad_10_1000_grad;
             problem.compute_H = @quad_10_1000_Hess;
         case 'P3'
+            % Set random number generator seeds
+            rng(0);
+            % Generate random data
+            global q Q
+            q = randn(1000,1);
+            Q = sprandsym(1000,0.5,0.1,1);
             problem.compute_f = @quad_1000_10_func;
             problem.compute_g = @quad_1000_10_grad;
             problem.compute_H = @quad_1000_10_Hess;
         case 'P4'
+            % Set random number generator seeds
+            rng(0);
+
+            % Generate random data
+            global q Q
+            q = randn(1000,1);
+            Q = sprandsym(1000,0.5,1e-3,1);
             problem.compute_f = @quad_1000_1000_func;
             problem.compute_g = @quad_1000_1000_grad;
             problem.compute_H = @quad_1000_1000_Hess;
