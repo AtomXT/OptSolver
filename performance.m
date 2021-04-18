@@ -20,8 +20,7 @@ for i=1:12
 end
 clc
 
-methods = {'GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', 'BFGSW', 'DFP', 'DFPW','TRNewtonCG'};
-% methods = {'Newton', 'TRSR1CG'};
+methods = {'GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG'};
 
 
 results = [];
