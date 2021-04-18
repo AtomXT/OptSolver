@@ -28,7 +28,7 @@ function [options] = setOptions(options)
     options.eta_0 = 0.01;
     options.alpha = 2.0;
     options.rho = 0.5;
-    options.beta = 1e-6;
+    options.beta = 1e-2;
     options.Delta = 0.1;
     options.epsilon = 1e-6;
 

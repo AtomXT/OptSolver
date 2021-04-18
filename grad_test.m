@@ -41,7 +41,7 @@ for j=1:12
         difference(i) = g - g_true;
     end
     disp(j)
-    disp(norm(difference))
+    disp(max(abs(difference)))
 end
 %% Test
 
