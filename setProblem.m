@@ -18,7 +18,7 @@ function [problem] = setProblem(problem)
     problem.trajectory = [];
     % set function handles according the the selected problem
     switch problem.name
-        
+
         case 'P1'
             problem.compute_f = @quad_10_10_func;
             problem.compute_g = @quad_10_10_grad;
@@ -28,6 +28,7 @@ function [problem] = setProblem(problem)
             problem.compute_g = @quad_10_1000_grad;
             problem.compute_H = @quad_10_1000_Hess;
         case 'P3'
+
             if exist("P3_Q_q.mat", 'file')
                 global q Q
                 load('P3_Q_q.mat')
@@ -37,14 +38,16 @@ function [problem] = setProblem(problem)
                 disp("Initializing Q and q...")
                 % Generate random data
                 global q Q
-                q = randn(1000,1);
-                Q = sprandsym(1000,0.5,0.1,1);
+                q = randn(1000, 1);
+                Q = sprandsym(1000, 0.5, 0.1, 1);
                 disp("done")
             end
+
             problem.compute_f = @quad_1000_10_func;
             problem.compute_g = @quad_1000_10_grad;
             problem.compute_H = @quad_1000_10_Hess;
         case 'P4'
+
             if exist("P4_Q_q.mat", 'file')
                 global q Q
                 load('P4_Q_q.mat')
@@ -54,10 +57,11 @@ function [problem] = setProblem(problem)
                 % Generate random data
                 disp("Initializing Q and q...")
                 global q Q
-                q = randn(1000,1);
-                Q = sprandsym(1000,0.5,1e-3,1);
+                q = randn(1000, 1);
+                Q = sprandsym(1000, 0.5, 1e-3, 1);
                 disp("done")
             end
+
             problem.compute_f = @quad_1000_1000_func;
             problem.compute_g = @quad_1000_1000_grad;
             problem.compute_H = @quad_1000_1000_Hess;
@@ -93,6 +97,11 @@ function [problem] = setProblem(problem)
             problem.compute_f = @genhumps_5_func;
             problem.compute_g = @genhumps_5_grad;
             problem.compute_H = @genhumps_5_Hess;
+
+        case 'big_problem'
+            problem.compute_f = @big_problem_func;
+            problem.compute_g = @big_problem_grad;
+            problem.compute_H = @big_problem_Hess;
 
         otherwise
 

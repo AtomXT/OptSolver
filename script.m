@@ -2,12 +2,12 @@
 
 % close all figures, clear all variables from workspace and clear command
 % window
-close all
-clear
+% close all
+% clear
 clc
 %% Change parameters to run different problems with each algorithm
 % set problem (minimal requirement: name of problem)
-problem.name = 'P5';
+problem.name = 'big_problem';
 
 rng(0);
 %problem.x0 = [cos(70) sin(70) cos(70) sin(70)]';
@@ -18,15 +18,17 @@ rng(0);
 %problem.x0 = [1; 1];
 % problem.x0 = [1; zeros(9,1)];
 % problem.x0 = 506.2*[-1;ones(4,1)];
-problem.x0 = ones(4, 1);
+% problem.x0 = ones(4, 1);
+X0 = 1e-3 * eye(50);
+problem.x0 = reshape(X0, [], 1);
 problem = setProblem(problem);
 
 % set method (minimal requirement: name of method)
-% method.name = 'GradientDescentW';
+method.name = 'GradientDescent';
 % method.name = 'Newton';
 %  method.name = 'BFGSW';
 % method.name = 'TRNewtonCG';
-method.name = 'TRSR1CG';
+% method.name = 'TRSR1CG';
 % method.name = 'DFPW';
 %% Constants
 % set options
