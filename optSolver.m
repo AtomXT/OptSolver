@@ -16,7 +16,6 @@ function [x, f] = optSolver(problem, method, options)
     g = problem.compute_g(x);
     [H] = problem.compute_H(x); 
     B = H;
-    disp(size(B));
     trajectory = (f);
     
     term_tol_CG = options.term_tol_CG;

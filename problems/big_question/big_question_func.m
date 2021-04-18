@@ -1,27 +1,11 @@
-% IOE 511/MATH 562, University of Michigan
-% Code written by: Albert S. Berahas
+% here we need to vectorize the input
+function [f] = big_question_func(x)
+    [A, y, m] = big_problem_data_generator();
+    matrix_x = reshape(x, [d, d]);
+    f = 0;
 
-% Problem Number: 1
-% Problem Name: quad_10_10
-% Problem Description: A randomly generated convex quadratic function; the 
-%                      random seed is set so that the results are 
-%                      reproducable. Dimension n = 10; Condition number
-%                      kappa = 10
-
-% function that computes the function value of the quad_10_10 function
-function [f] = quad_10_10_func(x)
-
-% Set random number generator seeds
-rng(0);
-
-% Generate random data
-q = randn(10,1);
-% MATLAB sprandsym function. Inputs: n, density, reciprocal of the 
-% condition number, and kind 
-% (see https://www.mathworks.com/help/matlab/ref/sprandsym.html)
-Q = sprandsym(10,0.5,0.1,1);
-
-% compute function value
-f = 1/2*x'*Q*x + q'*x;
+    for i = 1:m
+        f = f + 0.5 / m * (y(i) - dot(A(i), matrix_x));
+    end
 
 end
