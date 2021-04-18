@@ -26,7 +26,7 @@ function [x_new, f_new, g_new] = DFPWStep(x, x_old, g, g_old, H_k, problem, opti
     d = -H_new * g;
 
     % while (problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d) && (dot(problem.compute_g(x + alpha * d), d) > c2 * g' * d))
-    while problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d) && c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))
+    while problem.compute_f(x + alpha * d) > problem.compute_f(x) + c1 * alpha * dot(g, d) || c2 * abs(d' * g) < abs(d' * problem.compute_g(x + alpha * d))
         alpha = alpha * rho;
     end
 
