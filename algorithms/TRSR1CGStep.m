@@ -30,7 +30,7 @@ function [x_new, f_new, g_new, B_new, Delta_new, k1, k2] = TRSR1CGStep(x, f, g, 
     end
 
     if abs(s' * (y - B * s)) >= r * norm(s) * norm(y - B * s)
-        B_new = B + (y - B * s) * (y - B * s)' / ((y - B * s)' * s);
+        B_new = B + ((y - B * s) * (y - B * s)') / ((y - B * s)' * s);
     else
         B_new = B;
     end
