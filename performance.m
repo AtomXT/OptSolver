@@ -1,0 +1,1 @@
+%% Test algorithms on all test problems
