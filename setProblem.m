@@ -90,9 +90,9 @@ function [problem] = setProblem(problem)
             problem.compute_g = @Exponential_10_grad;
             problem.compute_H = @Exponential_10_Hess;
         case 'P11'
-            problem.compute_f = @Exponential_1000_func;
-            problem.compute_g = @Exponential_1000_grad;
-            problem.compute_H = @Exponential_1000_Hess;
+            problem.compute_f = @Exponential_100_func;
+            problem.compute_g = @Exponential_100_grad;
+            problem.compute_H = @Exponential_100_Hess;
         case 'P12'
             problem.compute_f = @genhumps_5_func;
             problem.compute_g = @genhumps_5_grad;

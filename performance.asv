@@ -28,8 +28,8 @@ f_trajectory = {};
 count = 1;
 for i=1:12
     % set options
-    options.term_tol = 1e-6;
-    options.max_iterations = 1e3;
+    options.term_tol = 1e-8;
+    options.max_iterations = 2e3;
     for j=1:length(methods)
         method.name = methods{j};
         disp("solving problem " + i + " with algorithm " + method.name)
@@ -48,13 +48,10 @@ for i=1:10
     need_k(:,i) = results(i:10:end, 1);
 end
 
-profile = zeros(1000,10);
-for i=1:1000
+profile = zeros(1500,10);
+for i=1:1500
     profile(i,:) = sum(need_k < i);
 end
 
-plot(1:1000, profile'/12, 'linewidth',2)
-title('Performance Profile')
-xlabel('iterations(k)')
-ylabel('ratio of problems solved')
-legend('GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG','Location','southeast')
+plot(1:1500, profile'/12, 'linewidth',2)
+legend=[1 2 3 4 5 6 7 8 9 10)
