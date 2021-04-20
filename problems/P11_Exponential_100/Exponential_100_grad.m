@@ -2,13 +2,13 @@
 % Code written by: Albert S. Berahas
 
 % Problem Number: 11
-% Problem Name: Exponential_1000
-% Problem Description: Dimension n = 1000
+% Problem Name: Exponential_100
+% Problem Description: Dimension n = 100
 
-% Function that computes the gradient of the Exponential_1000 function
+% Function that computes the gradient of the Exponential_100 function
 
-function [g] = Exponential_1000_grad(x)
-    n = 1000;
+function [g] = Exponential_100_grad(x)
+    n = 100;
     g = zeros(n, 1);
     g(1) = 2*exp(x(1)) / (exp(x(1)) + 1)^2 - 0.1 * exp(-x(1));
     

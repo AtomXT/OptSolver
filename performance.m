@@ -24,7 +24,9 @@ methods = {'GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', '
 
 
 results = [];
-for i=1:12
+f_trajectory = {};
+count = 1;
+for i=8:10
     % set options
     options.term_tol = 1e-8;
     options.max_iterations = 1e3;
@@ -34,8 +36,10 @@ for i=1:12
         problem.name = problems{i}.name;
         problem.x0 = problems{i}.x0;
 
-        [x, f, k, k1, k2, time] = optSolver_trajectory(problem,method,options);
-        results = [results; [f, k, k1, k2, time]];
+        [x, F, k, k1, k2, time] = optSolver_trajectory(problem,method,options);
+        results = [results; [k, k1, k2, time]];
+        f_trajectory{count} = F;
+        count = count + 1;
     end
 end
 

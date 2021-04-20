@@ -3,7 +3,7 @@
 %           Outputs: final iterate (x), final function value (f) and 
 %           numbers of iterations (k), function evaluations (k1), gradient evaluations (k2), 
 %           and CPU seconds (seconds)
-function [x, f, k, k1, k2, time] = optSolver_trajectory(problem, method, options)
+function [x, F, k, k1, k2, time] = optSolver_trajectory(problem, method, options)
     % add path of algorithms and problems
     addpath(genpath(pwd));
     
@@ -23,7 +23,7 @@ function [x, f, k, k1, k2, time] = optSolver_trajectory(problem, method, options
     [H] = problem.compute_H(x); 
     B = H;
     % trajectory = (f);
-    
+    F = f; % save the function value trajectory
     term_tol_CG = options.term_tol_CG;
     max_iterations_CG = options.max_iterations_CG;
     Delta = options.Delta;
@@ -136,7 +136,7 @@ function [x, f, k, k1, k2, time] = optSolver_trajectory(problem, method, options
                 error('Problem not defined!!!')
 
         end
-        % trajectory = [trajectory, f];
+        F = [F f];
         k1 = k1 + k1_i;
         k2 = k2 + k2_i;
     end
