@@ -19,21 +19,6 @@ function [options] = setOptions(options)
         warning('Maximum iterations not specified!!! Setting to default: 1e3')
         options.max_iterations = 1e3;
     end
-    options.c_1_ls = 1e-4;
-    options.c_2_ls = 0.9;
-    options.c_1_tr = 0.25;
-    options.c_2_tr = 0.75;
-    options.term_tol_CG = 1e-6;
-    options.max_iterations_CG = 1e3;
-    options.eta_0 = 0.01;
-    options.alpha = 2.0;
-    options.rho = 0.5;
-    options.beta = 1e-2;
-    options.Delta = 0.1;
-    options.epsilon = 1e-6;
 
-    % for SR1
-    options.eta = 1e-3;
-    options.r = 0.5;
 
 end

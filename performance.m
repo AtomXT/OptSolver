@@ -57,4 +57,7 @@ plot(1:1000, profile'/12, 'linewidth',2)
 title('Performance Profile')
 xlabel('iterations(k)')
 ylabel('ratio of problems solved')
-legend('GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG','Location','southeast')
+legend('GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS',...
+'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG','Location','southeast')
+
+
