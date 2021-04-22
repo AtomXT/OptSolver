@@ -10,13 +10,13 @@ function [x, f] = optSolver(problem, method, options)
     [method] = setMethod(method);
     [options] = setOptions(options);
 
-    % compute initial function/gradient/Hessian
+    % compute initial function/gradient/Hessian and constants for different
+    % algorithms
     x = problem.x0;
     f = problem.compute_f(x);
     g = problem.compute_g(x);
     [H] = problem.compute_H(x); 
     B = H;
-    trajectory = (f);
     
     term_tol_CG = options.term_tol_CG;
     max_iterations_CG = options.max_iterations_CG;
@@ -65,9 +65,10 @@ function [x, f] = optSolver(problem, method, options)
                 k = k + 1;
 
             case 'TRNewtonCG'
-                [x_new, f_mew. g_new, Delta_new, ~, ~] = TRNewtonCGStep(x, f, g, B, term_tol_CG, max_iterations_CG, Delta, problem, options);
+                [x_new, f_new. g_new, Delta_new, ~, ~] = TRNewtonCGStep(x, f, g, B, term_tol_CG, max_iterations_CG, Delta, problem, options);
                 x = x_new; f = f_new; g = g_new; 
                 B = problem.compute_H(x); norm_g = norm(g, inf); Delta = Delta_new;
+                % increment iteration counter
                 k = k + 1;
 
 

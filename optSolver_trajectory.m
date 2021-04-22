@@ -22,7 +22,6 @@ function [x, F, k, k1, k2, time] = optSolver_trajectory(problem, method, options
     g = problem.compute_g(x);
     [H] = problem.compute_H(x); 
     B = H;
-    % trajectory = (f);
     F = f; % save the function value trajectory
     term_tol_CG = options.term_tol_CG;
     max_iterations_CG = options.max_iterations_CG;

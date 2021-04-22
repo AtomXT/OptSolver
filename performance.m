@@ -6,7 +6,7 @@ close all
 clear
 clc
 
-%% set problem (minimal requirement: name of problem)
+% set parameters for different problems
 x0_string = ["x0 = 20*rand(10,1)-10","x0 = 20*rand(10,1)-10",...
              "x0 = 20*rand(1000,1)-10","x0 = 20*rand(1000,1)-10",...
              "x0 = [cos(70) sin(70) cos(70) sin(70)]'", "x0 = [cos(70) sin(70) cos(70) sin(70)]'",...
@@ -20,6 +20,7 @@ for i=1:12
 end
 clc
 
+% list of algorithms we will use
 methods = {'GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS', 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG'};
 
 % set options
@@ -42,7 +43,7 @@ options.epsilon = 1e-6;
 options.eta = 1e-3;
 options.r = 0.5;
 
-
+% get the performance
 results = [];
 f_trajectory = {};
 count = 1;
@@ -60,21 +61,25 @@ for i=1:12
     end
 end
 
+% number of iterations needed
 need_k = zeros(12,10);
 for i=1:10
     need_k(:,i) = results(i:10:end, 1);
 end
 
+% number of function evaluations needed
 need_k1 = zeros(12,10);
 for i=1:10
     need_k1(:,i) = results(i:10:end, 2);
 end
 
+% number of time needed
 need_time = zeros(12,10);
 for i=1:10
     need_time(:,i) = results(i:10:end, 4);
 end
 
+% create the profile for each metric
 profile = zeros(1000,10);
 for i=1:1000
     profile(i,:) = sum(need_k < i);
@@ -90,6 +95,7 @@ for i=1:1000
     profile_time(i,:) = sum(need_time < i*1e-4);
 end
 
+%% plot the performance profile
 color = ['r','g','b','c','m','y','m--',"r--","g--","b--"];
 for i=1:10
     plot(1:1000, profile(:,i)'/12,color(i), 'linewidth',1);
@@ -100,7 +106,7 @@ xlabel('iterations(k)')
 ylabel('ratio of problems solved')
 legend('GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS',...
 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG','Location','southeast')
-
+hold off
 
 color = ['r','g','b','c','m','y','m--',"r--","g--","b--"];
 for i=1:10
@@ -112,6 +118,7 @@ xlabel('numbers')
 ylabel('ratio of problems solved')
 legend('GradientDescent', 'GradientDescentW', 'Newton', 'NewtonW', 'BFGS',...
 'BFGSW', 'DFP', 'DFPW','TRNewtonCG', 'TRSR1CG','Location','southeast')
+hold off
 
 color = ['r','g','b','c','m','y','m--',"r--","g--","b--"];
 for i=1:10
