@@ -5,6 +5,7 @@ function [d] = CG_subproblem(g, B, epsilon, max_iter, Delta)
     r = g;
     p = -g;
     iter = 0;
+    d = zeros(size(g));
     while iter < max_iter
         iter = iter + 1;
         if norm(r) < epsilon

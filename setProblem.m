@@ -102,6 +102,8 @@ function [problem] = setProblem(problem)
             problem.compute_f = @big_problem_func;
             problem.compute_g = @big_problem_grad;
             problem.compute_H = @big_problem_Hess;
+            [~, ~, ~, ~, X_star] = big_problem_data_generator();
+            problem.X_star = X_star;
 
         otherwise
 

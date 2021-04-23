@@ -1,32 +1,37 @@
 function [H] = big_problem_Hess(x)
-    [A, y, m, d] = big_problem_data_generator();
+    [A, y, m, d, ~] = big_problem_data_generator();
     matrix_x = reshape(x, [d, d]);
-    H = zeros(size(matrix_x));
-
-    for i = 1:d
-        h = 0;
-
-        for j = 1:m
-            temp_A_X = A(:, :, j) * matrix_x;
-            h = h + matrix_x(i, i) * temp_A_X(i, i) + (sum((A(:, :, j) .* matrix_x * matrix_x'), 'all') - y(j));
-        end
-
-        H(i, i) = h;
-    end
+    H = zeros(size(d^2, d^2));
 
     for i = 1:d
 
-        for j = 1:i - 1
-            h = 0;
+        for j = 1:d
 
-            for k = 1:m
-                temp_A_X = A(:, :, k) * matrix_x;
-                h = h + matrix_x(i, j) * temp_A_X(i, j);
+            for i_prime = 1:d
+
+                for j_prime = 1:d
+                    h = 0;
+
+                    for k = 1:m
+                        A_X = A{k} * matrix_x;
+                        A_XX_y = sum(A{i} .* (matrix_x * matrix_x'), 'all') - y(k);
+                        h = h + A_X(i, j) * A_X(i_prime, j_prime);
+
+                        if j == j_prime
+                            h = h + A_XX_y * A{k}(i, i_prime);
+                        end
+
+                    end
+
+                    H((i - 1) * d + j, (i_prime - 1) * d + j_prime) = h;
+                end
+
             end
 
-            H(i, j) = h; H(j, i) = h;
         end
 
     end
+
+    H = H / m;
 
 end
