@@ -65,7 +65,7 @@ function [x, f] = optSolver(problem, method, options)
                 k = k + 1;
 
             case 'TRNewtonCG'
-                [x_new, f_new. g_new, Delta_new, ~, ~] = TRNewtonCGStep(x, f, g, B, term_tol_CG, max_iterations_CG, Delta, problem, options);
+                [x_new, f_new, g_new, Delta_new, ~, ~] = TRNewtonCGStep(x, f, g, B, term_tol_CG, max_iterations_CG, Delta, problem, options);
                 x = x_new; f = f_new; g = g_new; 
                 B = problem.compute_H(x); norm_g = norm(g, inf); Delta = Delta_new;
                 % increment iteration counter
