@@ -1,7 +1,7 @@
 % Function that runs a chosen algorithm on a chosen problem
 %           Inputs: problem, method, options (structs)
 %           Outputs: final iterate (x) and final function value (f)
-function [x, f] = optSolver(problem, method, options)
+function [x, f] = optSolver_xstar(problem, method, options)
     % add path of algorithms and problems
     addpath(genpath(pwd));
     

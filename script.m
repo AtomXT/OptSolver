@@ -49,4 +49,4 @@ options.epsilon = 1e-6;
 options.eta = 1e-3;
 options.r = 0.5;
 %% run method and return x^* and f^*
-[x,f] = optSolver(problem,method,options);
+[x,f] = optSolver_xstar(problem,method,options);

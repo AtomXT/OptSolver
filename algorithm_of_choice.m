@@ -18,4 +18,4 @@ options.max_iterations_CG = 1e3;
 options.Delta = 0.1;
 options.epsilon = 1e-6;
 
-[x,f] = optSolver(problem,method,options);
+[x,f] = optSolver_xstar(problem,method,options);
