@@ -3,8 +3,7 @@
 %           Outputs: final iterate (x), final function value (f) and 
 %           numbers of iterations (k), function evaluations (k1), gradient evaluations (k2), 
 %           and CPU seconds (seconds)
-% function [x, f, k, k1, k2, time] = optSolver_trajectory(problem, method, options)
-function [x, f, trajectory, trajectory1] = optSolver_trajectory(problem, method, options)
+function [x, F, k, k1, k2, time] = optSolver_trajectory(problem, method, options)
     % add path of algorithms and problems
     addpath(genpath(pwd));
     
@@ -13,22 +12,17 @@ function [x, f, trajectory, trajectory1] = optSolver_trajectory(problem, method,
     [method] = setMethod(method);
     [options] = setOptions(options);
     
-    % tic
-    % k1 = 0;
-    % k2 = 0;
+    tic
+    k1 = 0;
+    k2 = 0;
 
     % compute initial function/gradient/Hessian
     x = problem.x0;
-    d = 10;
-    X = reshape(x, [d, d]);
-    X_star = problem.X_star;
     f = problem.compute_f(x);
     g = problem.compute_g(x);
     [H] = problem.compute_H(x); 
     B = H;
-    trajectory = (f);
-    trajectory1 = norm(X_star - X * X', 'fro');
-    
+    F = f; % save the function value trajectory
     term_tol_CG = options.term_tol_CG;
     max_iterations_CG = options.max_iterations_CG;
     Delta = options.Delta;
@@ -41,12 +35,8 @@ function [x, f, trajectory, trajectory1] = optSolver_trajectory(problem, method,
     k = 0;
 
     while ((norm_g > options.term_tol * max(1, initial_norm)) && (k <= options.max_iterations))
+
         switch method.name
-            case 'GD'
-                x = x - 0.05 * g;
-                f = problem.compute_f(x);
-                g = problem.compute_g(x);
-                k = k + 1;
             case 'GradientDescent'
                 % take step according to a chosen method
                 [x_new, f_new, g_new, k1_i, k2_i] = GradientDescentStep(x, f, g, problem, options);
@@ -145,11 +135,9 @@ function [x, f, trajectory, trajectory1] = optSolver_trajectory(problem, method,
                 error('Problem not defined!!!')
 
         end
-        X = reshape(x, [d, d]);
-        trajectory = [trajectory, f];
-        trajectory1 = [trajectory1, norm(X_star - X * X', 'fro')];
-        % k1 = k1 + k1_i;
-        % k2 = k2 + k2_i;
+        F = [F f];
+        k1 = k1 + k1_i;
+        k2 = k2 + k2_i;
     end
-    % time = toc;
+    time = toc;
 end
